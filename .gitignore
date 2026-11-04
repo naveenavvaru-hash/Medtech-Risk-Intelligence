@@ -1,0 +1,21 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# generated data and logs (rebuilt by the pipeline)
+/data/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

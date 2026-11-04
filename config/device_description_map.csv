@@ -1,0 +1,3 @@
+pattern,product_codes,label,note
+"^(POLYMERIC |METALLIC )?(SPINAL )?INTERBODY FUSION (DEVICE|CAGE)$",MAX|ODP,{FDA},"Generic spinal-cage wording reported under the two fusion-device product codes -> the FDA name of that product code. REVIEW."
+"^INTERVERTEBR?AL( BODY)? FUSION DEVICE( W/ ?BONE GRAFT,? ?(LUMBAR|CERVICAL)?)?$",MAX|ODP,{FDA},"Spelling / wording variants of the FDA name seen in the real export ('Intervertebal Fusion Device w/Bone Graft, Lumbar', 'Intervertebral Body Fusion Device'). REVIEW."

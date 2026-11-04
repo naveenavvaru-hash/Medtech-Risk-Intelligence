@@ -1,0 +1,11 @@
+pattern,parent_company,note
+"\bMEDTRONIC\b|\bMDT\b|SOFAMOR DANEK|\bMSD DEGGENDORF\b|WARSAW ORTHOPEDIC|MICRO THERAPEUTICS|\bEV3\b|COVIDIEN|TITAN SPINE",Medtronic,"Starter mapping - REVIEW. Medtronic spine (Sofamor Danek, Warsaw), ev3 / Micro Therapeutics, Covidien, Titan Spine (acquired 2019). The old rule wrongly grouped MICRO THERAPEUTICS (ev3) under MicroPort."
+"\bSTRYKER\b|\bK2M\b",Stryker,"K2M was acquired by Stryker (2018). REVIEW."
+"\bSYNTHES\b|\bDEPUY\b|\bMEDOS INTERNATIONAL\b|J&J MEDTECH ORTHO",Synthes (DePuy Synthes),"Medos International is a DePuy Synthes (J&J) entity. REVIEW."
+CERENOVUS,Cerenovus (J&J),"J&J MedTech neurovascular brand. REVIEW."
+"\bZIMMER\b|\bBIOMET\b",Zimmer Biomet,
+"\bABBOTT\b|ST\.? JUDE",Abbott,
+"BOSTON SCIENTIFIC|\bGUIDANT\b|CARDIAC PACEMAKERS",Boston Scientific,
+"MICROPORT|\bSORIN\b|\bELA MEDICAL\b",MicroPort,"Sorin CRM / ELA Medical became MicroPort CRM (2018). REVIEW."
+"MICROVENTION|\bTERUMO\b",MicroVention (Terumo),
+"NUVASIVE|GLOBUS MEDICAL",Globus Medical,"NuVasive was acquired by Globus (2023). REVIEW."
