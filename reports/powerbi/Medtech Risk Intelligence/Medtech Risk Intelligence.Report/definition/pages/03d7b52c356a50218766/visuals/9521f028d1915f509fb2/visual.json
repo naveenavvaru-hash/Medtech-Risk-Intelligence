@@ -1,0 +1,197 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "9521f028d1915f509fb2",
+  "position": {
+    "x": 24.316109422492403,
+    "y": 469.78723404255322,
+    "z": 14000,
+    "height": 234.40729483282675,
+    "width": 590.39513677811556,
+    "tabOrder": 14000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags_parent"
+                    }
+                  },
+                  "Property": "Month Start"
+                }
+              },
+              "queryRef": "root_cause_flags_parent.Month Start",
+              "nativeQueryRef": "Month Start",
+              "displayName": "Month"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags_parent"
+                    }
+                  },
+                  "Property": "parent_company"
+                }
+              },
+              "queryRef": "root_cause_flags_parent.parent_company",
+              "nativeQueryRef": "parent_company",
+              "displayName": "Parent company"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags_parent"
+                    }
+                  },
+                  "Property": "category"
+                }
+              },
+              "queryRef": "root_cause_flags_parent.category",
+              "nativeQueryRef": "category",
+              "displayName": "Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags_parent"
+                    }
+                  },
+                  "Property": "flag_label"
+                }
+              },
+              "queryRef": "root_cause_flags_parent.flag_label",
+              "nativeQueryRef": "flag_label",
+              "displayName": "Flag"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags_parent"
+                    }
+                  },
+                  "Property": "risk_velocity_ratio"
+                }
+              },
+              "queryRef": "root_cause_flags_parent.risk_velocity_ratio",
+              "nativeQueryRef": "risk_velocity_ratio",
+              "displayName": "Velocity"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags_parent"
+                    }
+                  },
+                  "Property": "event_count"
+                }
+              },
+              "queryRef": "root_cause_flags_parent.event_count",
+              "nativeQueryRef": "event_count",
+              "displayName": "Events"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "root_cause_flags_parent"
+                  }
+                },
+                "Property": "Month Start"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "186.05167674867778D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "root_cause_flags_parent.parent_company"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "98.00913403265885D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "root_cause_flags_parent.flag_label"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Flagged clusters'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "7f7dfb2e5db4521fb6aa",
+  "position": {
+    "x": 648.75379939209733,
+    "y": 462.00607902735567,
+    "z": 14000,
+    "height": 242.18844984802433,
+    "width": 610.82066869300911,
+    "tabOrder": 14000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_recalls"
+                    }
+                  },
+                  "Property": "recall_id"
+                }
+              },
+              "queryRef": "fact_recalls.recall_id",
+              "nativeQueryRef": "recall_id",
+              "displayName": "Recall"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_manufacturer"
+                    }
+                  },
+                  "Property": "parent_company"
+                }
+              },
+              "queryRef": "dim_manufacturer.parent_company",
+              "nativeQueryRef": "parent_company",
+              "displayName": "Parent company"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_recalls"
+                    }
+                  },
+                  "Property": "reason"
+                }
+              },
+              "queryRef": "fact_recalls.reason",
+              "nativeQueryRef": "reason",
+              "displayName": "Reason"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_recalls"
+                    }
+                  },
+                  "Property": "recall_status"
+                }
+              },
+              "queryRef": "fact_recalls.recall_status",
+              "nativeQueryRef": "recall_status",
+              "displayName": "Status"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Recalled Units"
+                }
+              },
+              "queryRef": "_Measures.Recalled Units",
+              "nativeQueryRef": "Recalled Units",
+              "displayName": "Units"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Recalled Units"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "120.59705276544945D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_manufacturer.parent_company"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Largest recalls by units'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

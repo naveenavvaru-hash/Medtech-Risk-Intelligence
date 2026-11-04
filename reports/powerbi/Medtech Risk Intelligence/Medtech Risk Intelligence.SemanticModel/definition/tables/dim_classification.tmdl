@@ -1,0 +1,95 @@
+table dim_classification
+	lineageTag: 2d5d180d-4b9e-5525-a7b8-b7519b22b1fe
+
+	column product_code
+		dataType: string
+		lineageTag: e0138afa-617e-5ea8-96ce-9621619d0607
+		summarizeBy: none
+		sourceColumn: product_code
+
+	column device_class
+		dataType: string
+		lineageTag: 2a5c15a2-941d-5077-8fe2-4fdb9161e8ae
+		summarizeBy: none
+		sourceColumn: device_class
+
+	column device_class_label
+		dataType: string
+		lineageTag: 02956780-c2ab-5cb1-bad6-088e6ab9d41a
+		summarizeBy: none
+		sourceColumn: device_class_label
+
+	column device_name_fda
+		dataType: string
+		lineageTag: 57533087-9289-5e8f-94d3-c9bf0167342e
+		summarizeBy: none
+		sourceColumn: device_name_fda
+
+	column medical_specialty
+		dataType: string
+		lineageTag: 88361e83-adf4-58e0-84d0-162d88255828
+		summarizeBy: none
+		sourceColumn: medical_specialty
+
+	column medical_specialty_description
+		dataType: string
+		lineageTag: a1b1deb7-3eac-5d46-9234-857f6edcd9bb
+		summarizeBy: none
+		sourceColumn: medical_specialty_description
+
+	column implant_flag
+		dataType: string
+		lineageTag: b67163a8-1db0-526e-a234-ff60cb20ff38
+		summarizeBy: none
+		sourceColumn: implant_flag
+
+	column review_panel
+		dataType: string
+		lineageTag: 4a7d57c7-4f72-5e11-b675-a0d61fb2b66f
+		summarizeBy: none
+		sourceColumn: review_panel
+
+	column regulation_number
+		dataType: string
+		lineageTag: c2f286a3-36c3-5518-be58-68214dd62bbf
+		summarizeBy: none
+		sourceColumn: regulation_number
+
+	column summary_malfunction_reporting
+		dataType: string
+		lineageTag: 122e5e2d-d2ea-5466-88b4-3f014e446a80
+		summarizeBy: none
+		sourceColumn: summary_malfunction_reporting
+
+	column definition
+		dataType: string
+		lineageTag: 88026330-d6de-5d3b-9bf1-7ee8f0279a2d
+		summarizeBy: none
+		sourceColumn: definition
+
+	partition dim_classification = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DataFile), null, true),
+				    Sheet = Source{[Item = "dim_classification", Kind = "Sheet"]}[Data],
+				    Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {
+				        {"product_code", type text},
+				        {"device_class", type text},
+				        {"device_class_label", type text},
+				        {"device_name_fda", type text},
+				        {"medical_specialty", type text},
+				        {"medical_specialty_description", type text},
+				        {"implant_flag", type text},
+				        {"review_panel", type text},
+				        {"regulation_number", type text},
+				        {"summary_malfunction_reporting", type text},
+				        {"definition", type text}
+				        }
+				    )
+				in
+				    Typed
+

@@ -1,0 +1,33 @@
+table fact_event_outcomes
+	lineageTag: a2516617-4ce3-5eb0-9412-e3538344189f
+
+	column event_key
+		dataType: int64
+		isHidden
+		lineageTag: 2e8ac374-fc57-5de2-b850-c90ed44d9bf5
+		summarizeBy: none
+		sourceColumn: event_key
+
+	column outcome
+		dataType: string
+		lineageTag: b55c3c5c-862f-585d-98ce-66a7032271f3
+		summarizeBy: none
+		sourceColumn: outcome
+
+	partition fact_event_outcomes = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DataFile), null, true),
+				    Sheet = Source{[Item = "fact_event_outcomes", Kind = "Sheet"]}[Data],
+				    Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {
+				        {"event_key", Int64.Type},
+				        {"outcome", type text}
+				        }
+				    )
+				in
+				    Typed
+

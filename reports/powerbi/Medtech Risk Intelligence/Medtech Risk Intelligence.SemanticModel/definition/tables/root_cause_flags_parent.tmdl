@@ -1,0 +1,290 @@
+table root_cause_flags_parent
+	lineageTag: fd458122-5066-5273-a866-9bc22c115245
+
+	column category
+		dataType: string
+		lineageTag: 9b30cf74-71df-5a02-ba3c-1de531b6cb70
+		summarizeBy: none
+		sourceColumn: category
+
+	column parent_company
+		dataType: string
+		lineageTag: 13da8fa3-faef-5b67-a99c-fc76bdc43f6a
+		summarizeBy: none
+		sourceColumn: parent_company
+
+	column yr
+		dataType: int64
+		formatString: 0
+		lineageTag: a5c0a39e-f5e6-54e3-9cdc-1bd0c7bbd79b
+		summarizeBy: sum
+		sourceColumn: yr
+
+		annotation SummarizationSetBy = Automatic
+
+	column mo
+		dataType: int64
+		formatString: 0
+		lineageTag: bcda1f4e-06e6-5d15-8ccb-762972d6d008
+		summarizeBy: sum
+		sourceColumn: mo
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_count
+		dataType: int64
+		lineageTag: 7ed68f51-66ab-5a37-afc9-9c7018332010
+		summarizeBy: sum
+		sourceColumn: event_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column prev_month_count
+		dataType: int64
+		lineageTag: 1001972b-63dc-5122-bcf5-f642c5abd928
+		summarizeBy: sum
+		sourceColumn: prev_month_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column risk_velocity_pct
+		dataType: double
+		lineageTag: acbc43f6-a35d-5ec2-b39d-f9abbd5ae30a
+		summarizeBy: sum
+		sourceColumn: risk_velocity_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_statistical_breach
+		dataType: int64
+		lineageTag: 0ae823a1-01cd-5ed6-8674-6e1450cf86f2
+		summarizeBy: sum
+		sourceColumn: is_statistical_breach
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_event_count
+		dataType: int64
+		lineageTag: 49da0135-256a-5742-85b0-3ecba31ba579
+		summarizeBy: sum
+		sourceColumn: category_event_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column trailing_mean
+		dataType: double
+		formatString: 0.00
+		lineageTag: 6e9aa780-9c0c-557b-8f94-2daa830550bd
+		summarizeBy: sum
+		sourceColumn: trailing_mean
+
+		annotation SummarizationSetBy = Automatic
+
+	column trailing_stdev
+		dataType: double
+		formatString: 0.00
+		lineageTag: fcdf736a-ac58-53f4-88a6-60303b02ebd5
+		summarizeBy: sum
+		sourceColumn: trailing_stdev
+
+		annotation SummarizationSetBy = Automatic
+
+	column trailing_ucl
+		dataType: double
+		formatString: 0.00
+		lineageTag: e38edbdb-07de-596b-9859-178c30b0cf56
+		summarizeBy: sum
+		sourceColumn: trailing_ucl
+
+		annotation SummarizationSetBy = Automatic
+
+	column trailing_history_months
+		dataType: int64
+		isHidden
+		lineageTag: d2599b3c-c5b5-5cdd-b65c-96b71513e119
+		summarizeBy: sum
+		sourceColumn: trailing_history_months
+
+		annotation SummarizationSetBy = Automatic
+
+	column flag_reason
+		dataType: string
+		lineageTag: 7b3c97bd-5152-564d-a7a3-63c3598b8508
+		summarizeBy: none
+		sourceColumn: flag_reason
+
+	column risk_velocity_ratio
+		dataType: double
+		formatString: 0%
+		lineageTag: 7fa01051-848f-5203-a0d5-837c6dd5ec77
+		summarizeBy: sum
+		sourceColumn: risk_velocity_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column velocity_direction
+		dataType: string
+		lineageTag: 8e04eb65-526f-5964-aced-03d82bb15d51
+		summarizeBy: none
+		sourceColumn: velocity_direction
+
+	column is_velocity_spike
+		dataType: int64
+		lineageTag: 77088b56-179f-564a-a66b-0ea2948f927a
+		summarizeBy: sum
+		sourceColumn: is_velocity_spike
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_velocity_drop
+		dataType: int64
+		lineageTag: a813418a-598d-5e4d-8ec0-7f538a569069
+		summarizeBy: sum
+		sourceColumn: is_velocity_drop
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_statistical_watch
+		dataType: int64
+		lineageTag: 462a019a-ee29-58d2-90ff-300967472301
+		summarizeBy: sum
+		sourceColumn: is_statistical_watch
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_z_score
+		dataType: double
+		formatString: 0.00
+		lineageTag: 671c1d01-15ed-5ce3-85d0-1c590806f338
+		summarizeBy: sum
+		sourceColumn: category_z_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_low_history
+		dataType: int64
+		lineageTag: 7a369103-0431-5332-a1ae-34c72f0e1daf
+		summarizeBy: sum
+		sourceColumn: is_low_history
+
+		annotation SummarizationSetBy = Automatic
+
+	column flag_label
+		dataType: string
+		lineageTag: 9dcab55b-bbc1-5a8a-9009-6551c1536d0a
+		summarizeBy: none
+		sourceColumn: flag_label
+
+	column literature_event_count
+		dataType: int64
+		lineageTag: 3ecb3f4d-9734-58d2-8844-575d9f0c24ab
+		summarizeBy: sum
+		sourceColumn: literature_event_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column probable_duplicate_count
+		dataType: int64
+		lineageTag: 274278c0-6d6b-5caf-8a39-87d941aff216
+		summarizeBy: sum
+		sourceColumn: probable_duplicate_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column possible_duplicate_count
+		dataType: int64
+		lineageTag: c9311ad3-83ef-52c8-8c7f-d3e2f47aab67
+		summarizeBy: sum
+		sourceColumn: possible_duplicate_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column top_keywords
+		dataType: string
+		lineageTag: b00582cf-e3e8-581f-8257-49f6545a980b
+		summarizeBy: none
+		sourceColumn: top_keywords
+
+	column narrative_count
+		dataType: int64
+		lineageTag: 5d4c6fe2-9708-5814-a3d0-cb89cdc64713
+		summarizeBy: sum
+		sourceColumn: narrative_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column sample_narrative_1
+		dataType: string
+		lineageTag: 373f13ab-0b0d-5146-b454-0f3cc9020dc1
+		summarizeBy: none
+		sourceColumn: sample_narrative_1
+
+	column sample_narrative_2
+		dataType: string
+		lineageTag: 0f4d9650-9e7b-5d80-b0c2-86af37ddf980
+		summarizeBy: none
+		sourceColumn: sample_narrative_2
+
+	column sample_narrative_3
+		dataType: string
+		lineageTag: 76e6d993-39c4-5c83-a7a0-9215e0e69dbb
+		summarizeBy: none
+		sourceColumn: sample_narrative_3
+
+	column 'Month Start' = ```
+			DATE ( root_cause_flags_parent[yr], root_cause_flags_parent[mo], 1 )
+			
+			```
+		formatString: yyyy-mm
+		lineageTag: 1fca3475-7719-4962-847d-c582993ae8ac
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	partition root_cause_flags_parent = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DataFile), null, true),
+				    Sheet = Source{[Item = "root_cause_flags_parent", Kind = "Sheet"]}[Data],
+				    Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {
+				        {"category", type text},
+				        {"parent_company", type text},
+				        {"yr", Int64.Type},
+				        {"mo", Int64.Type},
+				        {"event_count", Int64.Type},
+				        {"prev_month_count", Int64.Type},
+				        {"risk_velocity_pct", type number},
+				        {"is_statistical_breach", Int64.Type},
+				        {"category_event_count", Int64.Type},
+				        {"trailing_mean", type number},
+				        {"trailing_stdev", type number},
+				        {"trailing_ucl", type number},
+				        {"trailing_history_months", Int64.Type},
+				        {"flag_reason", type text},
+				        {"risk_velocity_ratio", type number},
+				        {"velocity_direction", type text},
+				        {"is_velocity_spike", Int64.Type},
+				        {"is_velocity_drop", Int64.Type},
+				        {"is_statistical_watch", Int64.Type},
+				        {"category_z_score", type number},
+				        {"is_low_history", Int64.Type},
+				        {"flag_label", type text},
+				        {"literature_event_count", Int64.Type},
+				        {"probable_duplicate_count", Int64.Type},
+				        {"possible_duplicate_count", Int64.Type},
+				        {"top_keywords", type text},
+				        {"narrative_count", Int64.Type},
+				        {"sample_narrative_1", type text},
+				        {"sample_narrative_2", type text},
+				        {"sample_narrative_3", type text}
+				        }
+				    )
+				in
+				    Typed
+

@@ -1,0 +1,40 @@
+table fact_event_problem_codes
+	lineageTag: a405930c-1ce8-5ac2-b896-9172fe0b7505
+
+	column event_key
+		dataType: int64
+		isHidden
+		lineageTag: 45963bc8-927c-5491-9ad3-660c5040cfe3
+		summarizeBy: none
+		sourceColumn: event_key
+
+	column problem_code
+		dataType: string
+		lineageTag: 3cdc668f-60ce-5e3d-8213-479aad73d90a
+		summarizeBy: none
+		sourceColumn: problem_code
+
+	column problem_code_group
+		dataType: string
+		lineageTag: 36dd9e83-b142-53fa-8e00-943435b43ad6
+		summarizeBy: none
+		sourceColumn: problem_code_group
+
+	partition fact_event_problem_codes = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DataFile), null, true),
+				    Sheet = Source{[Item = "fact_event_problem_codes", Kind = "Sheet"]}[Data],
+				    Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {
+				        {"event_key", Int64.Type},
+				        {"problem_code", type text},
+				        {"problem_code_group", type text}
+				        }
+				    )
+				in
+				    Typed
+

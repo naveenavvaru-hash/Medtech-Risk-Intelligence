@@ -1,0 +1,81 @@
+relationship 7f99bc71-8e20-5332-9be5-2b187343ec3c
+	fromColumn: fact_events.date_key
+	toColumn: dim_date.date_key
+
+relationship 9a7c86a8-19ba-5194-a712-4d52dc2a4afd
+	fromColumn: fact_events.device_key
+	toColumn: dim_device.device_key
+
+relationship 8a519057-1e3c-59da-b303-4e46e849f350
+	fromColumn: fact_events.mfr_key
+	toColumn: dim_manufacturer.mfr_key
+
+relationship 8df241f4-d65a-5b41-ae22-299f2eefbdbf
+	fromColumn: fact_event_outcomes.event_key
+	toColumn: fact_events.event_key
+
+relationship 23ec337f-17e4-5cd2-bd3b-6bc32cfc0986
+	fromColumn: fact_event_problem_codes.event_key
+	toColumn: fact_events.event_key
+
+relationship c6e43208-2e7f-5313-8dc1-4f02b24c622f
+	fromColumn: fact_recalls.date_key
+	toColumn: dim_date.date_key
+
+relationship 89c722f2-15df-521d-a2b2-acfe271ef87f
+	isActive: false
+	fromColumn: fact_recalls.recall_initiated_date_key
+	toColumn: dim_date.date_key
+
+relationship f9b5efc2-89dc-5c53-87ec-c993361eab2d
+	fromColumn: fact_recalls.device_key
+	toColumn: dim_device.device_key
+
+relationship 31d892c6-695c-5440-ba3d-4832d397f07d
+	fromColumn: fact_recalls.mfr_key
+	toColumn: dim_manufacturer.mfr_key
+
+relationship 3ca94959-562e-5541-a040-ed1ce373fffa
+	fromColumn: dim_device.product_code
+	toColumn: dim_classification.product_code
+
+relationship 3d129a5b-806c-5a03-92a2-65d851534f10
+	fromColumn: root_cause_flags.mfr_key
+	toColumn: dim_manufacturer.mfr_key
+
+relationship e78ab736-a88c-92a5-833d-df7ed1213d3d
+	fromColumn: root_cause_flags.'Month Start'
+	toColumn: dim_date.full_date
+
+relationship fbdc507e-efe0-5158-ac2b-9c088f01bc5e
+	fromColumn: root_cause_flags_parent.'Month Start'
+	toColumn: dim_date.full_date
+
+relationship b841a8ce-5a07-9456-401c-be84accb2089
+	fromColumn: dim_device.category
+	toColumn: dim_category.category
+
+relationship 91aa3810-b858-f1ce-e85a-ac50a79bf134
+	fromColumn: dim_manufacturer.parent_company
+	toColumn: dim_parent.parent_company
+
+relationship e6d9c8cc-247c-b970-8f0d-9b4c468d2ff9
+	fromColumn: root_cause_flags_parent.parent_company
+	toColumn: dim_parent.parent_company
+
+relationship d64e1b46-5df8-b9fa-49ec-77391ed93a00
+	fromColumn: root_cause_flags.category
+	toColumn: dim_category.category
+
+relationship 7319aa8f-6810-4991-0770-fbf1a05adb74
+	fromColumn: root_cause_flags_parent.category
+	toColumn: dim_category.category
+
+relationship 8243bbab-21fb-247b-b68d-0e2cf0c3cc6e
+	fromColumn: ctl_CategoryMonth.Category
+	toColumn: dim_category.category
+
+relationship e74a0e09-ccba-7593-5f6e-b6adb0594043
+	fromColumn: ctl_CategoryMonth.'Month Start'
+	toColumn: dim_date.full_date
+

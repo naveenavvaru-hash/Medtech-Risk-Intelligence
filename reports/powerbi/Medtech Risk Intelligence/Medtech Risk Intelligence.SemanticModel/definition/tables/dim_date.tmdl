@@ -1,0 +1,132 @@
+table dim_date
+	lineageTag: fea2a0e0-b3ef-5c56-99f3-37dc44a8b780
+	dataCategory: Time
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: 1f1b511a-787a-5509-8533-907f993784ac
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column full_date
+		dataType: dateTime
+		isKey
+		formatString: yyyy-mm-dd
+		lineageTag: 0f2fd9cb-52b9-5b7b-888e-ebcb12185210
+		summarizeBy: none
+		sourceColumn: full_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 8bb64a52-a7f1-534c-b3b2-ec11644ba230
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 9de08c11-727b-5d14-9c9d-12b69a4bbff8
+		summarizeBy: sum
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: ea3869fd-551f-5283-9c63-1c8e5883b528
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = User
+
+	column month_name
+		dataType: string
+		lineageTag: 8978ccd4-d8f0-5a6d-9754-cf4078d028ca
+		summarizeBy: none
+		sourceColumn: month_name
+		sortByColumn: month
+
+	column week
+		dataType: int64
+		formatString: 0
+		lineageTag: db10192c-90d6-5ae0-8480-8d295d107cf8
+		summarizeBy: sum
+		sourceColumn: week
+
+		annotation SummarizationSetBy = Automatic
+
+	column iso_year
+		dataType: int64
+		formatString: 0
+		lineageTag: c3492872-14b0-5df7-a1f1-5f1566d098a3
+		summarizeBy: sum
+		sourceColumn: iso_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_month_label
+		dataType: string
+		lineageTag: fb7c88a9-c268-5cf6-89ee-3c5724cc3553
+		summarizeBy: none
+		sourceColumn: year_month_label
+		sortByColumn: year_month_sort
+
+	column year_month_sort
+		dataType: int64
+		isHidden
+		lineageTag: 56b3660f-6fe1-559a-930b-f9c8826ccd6e
+		summarizeBy: sum
+		sourceColumn: year_month_sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Quarter' = dim_date[year] & " Q" & dim_date[quarter]
+		lineageTag: 507dcdaf-6643-4eda-b7a6-b453ea879165
+		summarizeBy: none
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year Quarter Sort' = dim_date[year] * 10 + dim_date[quarter]
+		isHidden
+		formatString: 0
+		lineageTag: adb16d2f-f06a-41ce-92d5-9b4b593bb038
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DataFile), null, true),
+				    Sheet = Source{[Item = "dim_date", Kind = "Sheet"]}[Data],
+				    Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {
+				        {"date_key", Int64.Type},
+				        {"full_date", type date},
+				        {"year", Int64.Type},
+				        {"quarter", Int64.Type},
+				        {"month", Int64.Type},
+				        {"month_name", type text},
+				        {"week", Int64.Type},
+				        {"iso_year", Int64.Type},
+				        {"year_month_label", type text},
+				        {"year_month_sort", Int64.Type}
+				        }
+				    )
+				in
+				    Typed
+

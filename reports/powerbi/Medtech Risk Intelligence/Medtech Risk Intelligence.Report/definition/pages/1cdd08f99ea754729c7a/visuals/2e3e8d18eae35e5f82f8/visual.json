@@ -1,0 +1,128 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "2e3e8d18eae35e5f82f8",
+  "position": {
+    "x": 732.40121580547111,
+    "y": 511.61094224924017,
+    "z": 9000,
+    "height": 192.58358662613983,
+    "width": 527.17325227963534,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags"
+                    }
+                  },
+                  "Property": "flag_label"
+                }
+              },
+              "queryRef": "root_cause_flags.flag_label",
+              "nativeQueryRef": "flag_label",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "root_cause_flags"
+                        }
+                      },
+                      "Property": "event_count"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(root_cause_flags.event_count)",
+              "nativeQueryRef": "Sum of event_count"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Events in flagged months by flag type'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "6cf4bade4015da26e952",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "root_cause_flags"
+              }
+            },
+            "Property": "flag_label"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "25156d8b970ce05595ca",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "root_cause_flags"
+                  }
+                },
+                "Property": "event_count"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

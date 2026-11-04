@@ -1,0 +1,44 @@
+table 'Completeness Fields'
+	lineageTag: 49b69afa-0e44-43ae-addd-4e58f91c300e
+
+	column Field
+		lineageTag: 920f0fe1-328a-447e-8527-410fc4cd2768
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Field]
+		sortByColumn: Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		isHidden
+		formatString: 0
+		lineageTag: 88f627f2-fdf4-4ad4-9f34-1c37958d2b45
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Completeness Fields' = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE (
+				    "Field", STRING,
+				    "Order", INTEGER,
+				    {
+				        { "Narrative present", 1 },
+				        { "Lot number known", 2 },
+				        { "Patient age known", 3 },
+				        { "Outcome known", 4 },
+				        { "Manufacturer country known", 5 },
+				        { "DUNS known", 6 },
+				        { "Recall initiated date known", 7 }
+				    }
+				)
+				
+				```
+
+	annotation PBI_Id = 690141a1e9254900b0f1dc3a1a6ea7d7
+

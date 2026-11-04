@@ -1,0 +1,19 @@
+table dim_parent
+	lineageTag: 3e31059c-bbd6-452b-9717-43c52049fefb
+
+	column parent_company
+		lineageTag: 4668d81c-db35-4b6e-aaef-2760641cbcd7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dim_manufacturer[parent_company]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_parent = calculated
+		mode: import
+		source =
+				
+				DISTINCT ( dim_manufacturer[parent_company] )
+
+	annotation PBI_Id = e0c636af5ea247428456c96fb262fd59
+

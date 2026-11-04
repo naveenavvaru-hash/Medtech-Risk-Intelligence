@@ -1,0 +1,80 @@
+table dim_manufacturer
+	lineageTag: 9e8817a7-1050-5d0e-b47e-f3694ac66fa5
+
+	column mfr_key
+		dataType: int64
+		isHidden
+		lineageTag: 03bca4cf-4fb7-5564-852a-e5827f917503
+		summarizeBy: none
+		sourceColumn: mfr_key
+
+	column canonical_name
+		dataType: string
+		lineageTag: 143fdccb-059f-5b58-858b-e72aeb4b3b35
+		summarizeBy: none
+		sourceColumn: canonical_name
+
+	column display_name
+		dataType: string
+		lineageTag: e781c8b1-6a94-5d83-ad06-3d01cbcc33fd
+		summarizeBy: none
+		sourceColumn: display_name
+
+	column parent_company
+		dataType: string
+		lineageTag: 597fdb55-0372-53c5-9d29-6d1704cd97ae
+		summarizeBy: none
+		sourceColumn: parent_company
+
+	column country
+		dataType: string
+		lineageTag: dbca752c-b0c7-5b90-9bc6-450d7da9724b
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: country
+
+	column duns_number
+		dataType: string
+		isHidden
+		lineageTag: 8d68c774-75b3-5461-a04b-1b6130da0026
+		summarizeBy: none
+		sourceColumn: duns_number
+
+	column country_source
+		dataType: string
+		isHidden
+		lineageTag: 35072bba-f295-5749-b8ef-f7951569e718
+		summarizeBy: none
+		sourceColumn: country_source
+
+	column is_placeholder_entity
+		dataType: int64
+		lineageTag: 5d000180-0f88-558e-8565-0728dcbfd711
+		summarizeBy: sum
+		sourceColumn: is_placeholder_entity
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_manufacturer = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DataFile), null, true),
+				    Sheet = Source{[Item = "dim_manufacturer", Kind = "Sheet"]}[Data],
+				    Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {
+				        {"mfr_key", Int64.Type},
+				        {"canonical_name", type text},
+				        {"display_name", type text},
+				        {"parent_company", type text},
+				        {"country", type text},
+				        {"duns_number", type text},
+				        {"country_source", type text},
+				        {"is_placeholder_entity", Int64.Type}
+				        }
+				    )
+				in
+				    Typed
+

@@ -1,0 +1,5 @@
+expression DataFile = "C:\PowerBI\MedTech\PowerBI_Export.xlsx" meta [IsParameterQuery=true, IsParameterQueryRequired=true, Type="Text"]
+	lineageTag: 13fb18b0-bb8c-510b-aae0-3889bbe04746
+
+	annotation PBI_ResultType = Text
+

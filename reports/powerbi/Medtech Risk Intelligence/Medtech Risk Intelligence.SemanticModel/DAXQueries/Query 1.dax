@@ -1,0 +1,5 @@
+EVALUATE
+SUMMARIZECOLUMNS (
+    'Completeness Fields'[Field],
+    "Completeness", [Completeness %]
+)

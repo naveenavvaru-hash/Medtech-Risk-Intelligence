@@ -1,0 +1,161 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "d7bf116fa821504cb6b3",
+  "position": {
+    "x": 791.73252279635267,
+    "y": 471.73252279635261,
+    "z": 13000,
+    "height": 232.46200607902736,
+    "width": 467.84194528875383,
+    "tabOrder": 13000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "data_coverage"
+                    }
+                  },
+                  "Property": "sheet"
+                }
+              },
+              "queryRef": "data_coverage.sheet",
+              "nativeQueryRef": "sheet",
+              "displayName": "Sheet"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "data_coverage"
+                    }
+                  },
+                  "Property": "column"
+                }
+              },
+              "queryRef": "data_coverage.column",
+              "nativeQueryRef": "column",
+              "displayName": "Column"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "data_coverage"
+                    }
+                  },
+                  "Property": "non_null_pct"
+                }
+              },
+              "queryRef": "data_coverage.non_null_pct",
+              "nativeQueryRef": "non_null_pct",
+              "displayName": "Filled %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "data_coverage"
+                  }
+                },
+                "Property": "non_null_pct"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Least complete columns'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "e806b29022d0c01c4d05",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "data_coverage"
+              }
+            },
+            "Property": "sheet"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "a6d48c820ee10c4a8800",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "data_coverage"
+              }
+            },
+            "Property": "column"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "822daeff6d00961a60c7",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "data_coverage"
+              }
+            },
+            "Property": "non_null_pct"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

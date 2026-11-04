@@ -1,0 +1,19 @@
+table dim_category
+	lineageTag: 25a2b5ef-7045-4dea-9718-accac4ba2635
+
+	column category
+		lineageTag: a07fc311-a811-47bd-bd96-a4d3f70d7ba4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: dim_device[category]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_category = calculated
+		mode: import
+		source =
+				
+				DISTINCT ( dim_device[category] )
+
+	annotation PBI_Id = bff378b9c5b541228aa864afd181bd9a
+

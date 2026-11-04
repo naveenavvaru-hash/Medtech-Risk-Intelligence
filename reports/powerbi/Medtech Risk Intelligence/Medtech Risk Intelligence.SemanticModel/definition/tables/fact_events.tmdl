@@ -1,0 +1,166 @@
+table fact_events
+	lineageTag: 401d3224-a113-5128-94c9-18697c3e43ae
+
+	column event_key
+		dataType: int64
+		isHidden
+		lineageTag: c5718d74-6f0f-57e2-9c72-80fa5df7274f
+		summarizeBy: none
+		sourceColumn: event_key
+
+	column report_number
+		dataType: string
+		lineageTag: 2dd8138d-ca9d-5a02-b3c8-6a6283a6bb90
+		summarizeBy: none
+		sourceColumn: report_number
+
+	column device_key
+		dataType: int64
+		isHidden
+		lineageTag: cace112e-e221-5fbc-9a88-1d7a773ae680
+		summarizeBy: none
+		sourceColumn: device_key
+
+	column mfr_key
+		dataType: int64
+		isHidden
+		lineageTag: 94cf05ff-be84-5e27-b56f-127430251c3f
+		summarizeBy: none
+		sourceColumn: mfr_key
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: 41ecd3b8-b0e7-5fb0-b765-6100dc85caeb
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column event_type
+		dataType: string
+		lineageTag: 89e11abc-7de6-5882-b8ba-7359d8a5c2c7
+		summarizeBy: none
+		sourceColumn: event_type
+
+	column narrative_text
+		dataType: string
+		lineageTag: 6ddb0c22-2c7d-52be-a92e-86084d1282c1
+		summarizeBy: none
+		sourceColumn: narrative_text
+
+	column lot_number
+		dataType: string
+		isHidden
+		lineageTag: 7843926d-3683-5ba4-834b-7269d7b39ba5
+		summarizeBy: none
+		sourceColumn: lot_number
+
+	column lot_kind
+		dataType: string
+		lineageTag: cb28853b-afba-5fc5-b1c7-eeb2394ee4f0
+		summarizeBy: none
+		sourceColumn: lot_kind
+
+	column patient_age
+		dataType: string
+		isHidden
+		lineageTag: 1847910d-2a57-5309-9d29-c5bede0d815d
+		summarizeBy: none
+		sourceColumn: patient_age
+
+	column patient_age_years
+		dataType: double
+		lineageTag: 9b8d55fa-4539-558b-a694-4f530b2ed886
+		summarizeBy: average
+		sourceColumn: patient_age_years
+
+	column patient_sex
+		dataType: string
+		lineageTag: a994415f-e473-5c36-80db-5c82c49ac4bf
+		summarizeBy: none
+		sourceColumn: patient_sex
+
+	column patient_outcome
+		dataType: string
+		isHidden
+		lineageTag: a0081bdc-3c5f-5b8d-bd80-04938c96c87d
+		summarizeBy: none
+		sourceColumn: patient_outcome
+
+	column product_problem_codes
+		dataType: string
+		isHidden
+		lineageTag: 6e53f714-7063-5bea-bc98-2bd0b335725c
+		summarizeBy: none
+		sourceColumn: product_problem_codes
+
+	column has_narrative
+		dataType: int64
+		lineageTag: 6e705ec9-29fd-545d-83f8-3e8424ba263c
+		summarizeBy: none
+		sourceColumn: has_narrative
+
+	column is_literature_report
+		dataType: int64
+		lineageTag: ced3eea1-9c1e-5f72-97ab-267e3e139444
+		summarizeBy: none
+		sourceColumn: is_literature_report
+
+	column literature_basis
+		dataType: string
+		lineageTag: 2e4fced6-7495-56f1-9642-69b1f1e38a5d
+		summarizeBy: none
+		sourceColumn: literature_basis
+
+	column is_probable_duplicate
+		dataType: int64
+		lineageTag: cce96713-c478-56d9-82a5-67406afbf063
+		summarizeBy: none
+		sourceColumn: is_probable_duplicate
+
+	column is_possible_duplicate
+		dataType: int64
+		lineageTag: 5f4f3113-ffbe-50bd-8d62-67e1af34cebd
+		summarizeBy: none
+		sourceColumn: is_possible_duplicate
+
+	column duplicate_basis
+		dataType: string
+		lineageTag: 34e7f8ba-ea4d-5b99-8293-d3223280c4a7
+		summarizeBy: none
+		sourceColumn: duplicate_basis
+
+	partition fact_events = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DataFile), null, true),
+				    Sheet = Source{[Item = "fact_events", Kind = "Sheet"]}[Data],
+				    Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {
+				        {"event_key", Int64.Type},
+				        {"report_number", type text},
+				        {"device_key", Int64.Type},
+				        {"mfr_key", Int64.Type},
+				        {"date_key", Int64.Type},
+				        {"event_type", type text},
+				        {"narrative_text", type text},
+				        {"lot_number", type text},
+				        {"lot_kind", type text},
+				        {"patient_age", type text},
+				        {"patient_age_years", type number},
+				        {"patient_sex", type text},
+				        {"patient_outcome", type text},
+				        {"product_problem_codes", type text},
+				        {"has_narrative", Int64.Type},
+				        {"is_literature_report", Int64.Type},
+				        {"literature_basis", type text},
+				        {"is_probable_duplicate", Int64.Type},
+				        {"is_possible_duplicate", Int64.Type},
+				        {"duplicate_basis", type text}
+				        }
+				    )
+				in
+				    Typed
+

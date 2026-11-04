@@ -1,0 +1,212 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "03e8b843db5058718bf7",
+  "position": {
+    "x": 24.316109422492403,
+    "y": 511.61094224924017,
+    "z": 8000,
+    "height": 192.58358662613983,
+    "width": 700.30395136778122,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_manufacturer"
+                    }
+                  },
+                  "Property": "display_name"
+                }
+              },
+              "queryRef": "dim_manufacturer.display_name",
+              "nativeQueryRef": "display_name",
+              "displayName": "Manufacturer"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags"
+                    }
+                  },
+                  "Property": "category"
+                }
+              },
+              "queryRef": "root_cause_flags.category",
+              "nativeQueryRef": "category",
+              "displayName": "Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags"
+                    }
+                  },
+                  "Property": "yr"
+                }
+              },
+              "queryRef": "root_cause_flags.yr",
+              "nativeQueryRef": "yr",
+              "displayName": "Year"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags"
+                    }
+                  },
+                  "Property": "mo"
+                }
+              },
+              "queryRef": "root_cause_flags.mo",
+              "nativeQueryRef": "mo",
+              "displayName": "Month"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags"
+                    }
+                  },
+                  "Property": "event_count"
+                }
+              },
+              "queryRef": "root_cause_flags.event_count",
+              "nativeQueryRef": "event_count",
+              "displayName": "Events"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags"
+                    }
+                  },
+                  "Property": "category_z_score"
+                }
+              },
+              "queryRef": "root_cause_flags.category_z_score",
+              "nativeQueryRef": "category_z_score",
+              "displayName": "Z-score"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "root_cause_flags"
+                    }
+                  },
+                  "Property": "flag_label"
+                }
+              },
+              "queryRef": "root_cause_flags.flag_label",
+              "nativeQueryRef": "flag_label",
+              "displayName": "Flag"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "root_cause_flags"
+                  }
+                },
+                "Property": "category_z_score"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "246.04757648857603D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_manufacturer.display_name"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "126.25410664698765D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "root_cause_flags.flag_label"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Which manufacturer drove it?'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,257 @@
+table _Measures
+	lineageTag: 6b1485dc-d782-5453-a052-d2bee561ab4c
+
+	measure 'Event Count' = COUNTROWS ( fact_events )
+		formatString: #,0
+		displayFolder: 1 Volumes
+		lineageTag: d4d6fc67-e2d1-59ec-b7e4-8ff5b1e1643f
+
+	measure 'Recall Count' = COUNTROWS ( fact_recalls )
+		formatString: #,0
+		displayFolder: 1 Volumes
+		lineageTag: 85b629ea-d50c-51a2-bc4c-c345012552b9
+
+	measure 'Recalled Units' = SUM ( fact_recalls[product_quantity_units] )
+		formatString: #,0
+		displayFolder: 1 Volumes
+		lineageTag: f5e1c7c0-cf43-5570-a41d-ea7fe67824df
+
+	measure 'Device Count' = DISTINCTCOUNT ( fact_events[device_key] )
+		formatString: #,0
+		displayFolder: 1 Volumes
+		lineageTag: 59b4b97f-cdf5-5a32-b277-eacb56fff0fc
+
+	measure 'Device Rows' = COUNTROWS ( dim_device )
+		formatString: #,0
+		displayFolder: 1 Volumes
+		lineageTag: c8697e2b-8a75-5930-b304-955840765422
+
+	measure 'Manufacturer Count' = DISTINCTCOUNT ( fact_events[mfr_key] )
+		formatString: #,0
+		displayFolder: 1 Volumes
+		lineageTag: 20beb029-0b92-5205-a40c-b1cb546cda44
+
+	measure 'Death Event Count' = CALCULATE ( [Event Count], fact_events[event_type] = "Death" )
+		formatString: #,0
+		displayFolder: 1 Volumes
+		lineageTag: 68d38644-ce04-5ade-800e-3f7cd40c5c73
+
+	measure 'Open Recall Count' = CALCULATE ( [Recall Count], fact_recalls[recall_status] = "Open, Classified" )
+		formatString: #,0
+		displayFolder: 1 Volumes
+		lineageTag: 9c4fef3f-8447-5893-9845-f7dca01626f0
+
+	measure 'Worldwide Share %' = DIVIDE ( CALCULATE ( [Recall Count], fact_recalls[distribution_scope] = "Worldwide" ), [Recall Count] )
+		formatString: 0.0%
+		displayFolder: 2 Shares
+		lineageTag: 0345c0a6-5e0e-5b3e-a910-5d1c7e9d942d
+
+	measure 'Vague Reason Share %' = DIVIDE ( CALCULATE ( [Recall Count], fact_recalls[reason_group] = "Vague" ), [Recall Count] )
+		formatString: 0.0%
+		displayFolder: 2 Shares
+		lineageTag: 8f5562de-3b23-53cf-b8b4-920166b2566c
+
+	measure 'Probable Duplicate %' = DIVIDE ( CALCULATE ( [Event Count], fact_events[is_probable_duplicate] = 1 ), [Event Count] )
+		formatString: 0.0%
+		displayFolder: 2 Shares
+		lineageTag: c736d04a-5c84-5c5a-b121-7a98e7eb8197
+
+	measure 'Possible Duplicate %' = DIVIDE ( CALCULATE ( [Event Count], fact_events[is_possible_duplicate] = 1 ), [Event Count] )
+		formatString: 0.0%
+		displayFolder: 2 Shares
+		lineageTag: 56482ecc-3663-56cc-9ce6-e11dc978bcdf
+
+	measure 'Literature Report %' = DIVIDE ( CALCULATE ( [Event Count], fact_events[is_literature_report] = 1 ), [Event Count] )
+		formatString: 0.0%
+		displayFolder: 2 Shares
+		lineageTag: 8440f385-e24a-50e6-964c-a508e40d7e0e
+
+	measure 'Outcome Mentions' = COUNTROWS ( fact_event_outcomes )
+		formatString: #,0
+		displayFolder: 3 Outcomes and problems
+		lineageTag: e553f02c-6e99-59e5-8470-1cece95cbbdc
+
+	measure 'Problem Code Mentions' = COUNTROWS ( fact_event_problem_codes )
+		formatString: #,0
+		displayFolder: 3 Outcomes and problems
+		lineageTag: 8736401d-0885-5771-b745-4940c2342258
+
+	measure 'Flagged Parent-Months' = COUNTROWS ( root_cause_flags_parent )
+		formatString: #,0
+		displayFolder: 4 Risk flags
+		lineageTag: 53a23abc-1f35-5698-b3f3-40a458d8a66b
+
+	measure 'Flagged Events' = SUM ( root_cause_flags_parent[event_count] )
+		formatString: #,0
+		displayFolder: 4 Risk flags
+		lineageTag: dc82ecd4-2887-560f-b1d4-77a7e759d401
+
+	measure 'Peak Rise %' = MAXX ( FILTER ( root_cause_flags_parent, root_cause_flags_parent[velocity_direction] = "Rise" ), root_cause_flags_parent[risk_velocity_ratio] )
+		formatString: 0%
+		displayFolder: 4 Risk flags
+		lineageTag: 989aa6a5-a318-57d8-aae9-91e760343f8b
+
+	measure 'Peak Velocity %' = MAX ( root_cause_flags_parent[risk_velocity_ratio] )
+		formatString: 0%
+		displayFolder: 4 Risk flags
+		lineageTag: fb47f0e4-bb9d-5ea8-9641-cf83ac20a2fd
+
+	measure 'Velocity Spikes' = CALCULATE ( COUNTROWS ( root_cause_flags_parent ), root_cause_flags_parent[is_velocity_spike] = 1 )
+		formatString: #,0
+		displayFolder: 4 Risk flags
+		lineageTag: 2e81bd5c-78b1-50dd-902d-98b4ac561cdb
+
+	measure 'Velocity Drops' = CALCULATE ( COUNTROWS ( root_cause_flags_parent ), root_cause_flags_parent[is_velocity_drop] = 1 )
+		formatString: #,0
+		displayFolder: 4 Risk flags
+		lineageTag: dd1ad59a-883f-52dc-8819-45fc71159b96
+
+	measure 'Flag Colour' =
+			SWITCH (
+			    SELECTEDVALUE ( root_cause_flags_parent[flag_label] ),
+			    "Velocity spike", "#C8553D",
+			    "Velocity drop", "#3E5C8A",
+			    "Statistical watch", "#E0A458",
+			    "Statistical breach", "#0B2545",
+			    "Statistical breach + velocity spike", "#0B2545",
+			    "#6B7A90"
+			)
+		displayFolder: 4 Risk flags
+		lineageTag: c8708ff8-13e3-59ca-baaf-897f9c4e3263
+
+	measure 'Recalls by Initiated Date' = CALCULATE ( [Recall Count], USERELATIONSHIP ( fact_recalls[recall_initiated_date_key], dim_date[date_key] ) )
+		formatString: #,0
+		displayFolder: 6 Recall dates
+		lineageTag: 8ea4e72a-8a2f-5c20-9e8c-4c09e5bcc4f1
+
+	measure 'Model-level GUDID %' = DIVIDE ( CALCULATE ( COUNTROWS ( dim_device ), dim_device[gudid_match_level] = "Model" ), COUNTROWS ( dim_device ) )
+		formatString: 0.0%
+		displayFolder: 7 Data trust
+		lineageTag: 69dd7e13-0dc7-566a-92c8-6ca98948e3b5
+
+	measure 'Any-level GUDID %' = DIVIDE ( CALCULATE ( COUNTROWS ( dim_device ), dim_device[gudid_enriched] = 1 ), COUNTROWS ( dim_device ) )
+		formatString: 0.0%
+		displayFolder: 7 Data trust
+		lineageTag: 8cb15d2b-0228-5060-8822-745b13d8a2d6
+
+	measure 'Manufacturer Country Known %' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( dim_manufacturer ), dim_manufacturer[is_placeholder_entity] = 0, NOT ISBLANK ( dim_manufacturer[country] ) ),
+			    CALCULATE ( COUNTROWS ( dim_manufacturer ), dim_manufacturer[is_placeholder_entity] = 0 )
+			)
+		formatString: 0.0%
+		displayFolder: 7 Data trust
+		lineageTag: 1b9221f7-c69c-5deb-bf18-47a2cfa0e77d
+
+	measure 'DUNS Coverage %' = DIVIDE ( CALCULATE ( COUNTROWS ( dim_manufacturer ), NOT ISBLANK ( dim_manufacturer[duns_number] ) ), COUNTROWS ( dim_manufacturer ) )
+		formatString: 0.0%
+		displayFolder: 7 Data trust
+		lineageTag: e5338909-b1f9-5206-a47c-93d7fcae1e51
+
+	measure 'Data Through' = MAXX ( fact_events, RELATED ( dim_date[full_date] ) )
+		formatString: mmm d, yyyy
+		displayFolder: 7 Data trust
+		lineageTag: bcf23157-0cba-5941-a131-efc7672bdc26
+
+	measure 'Breach Months' = ```
+			
+			        CALCULATE ( COUNTROWS ( ctl_CategoryMonth ), ctl_CategoryMonth[Is Breach] = 1 )
+			```
+		formatString: 0
+		lineageTag: c13e5ae1-ec15-41c8-9e30-00d71ebd64a4
+
+	measure 'Watch Months' = ```
+			
+			        CALCULATE ( COUNTROWS ( ctl_CategoryMonth ), ctl_CategoryMonth[Is Watch] = 1 )
+			```
+		formatString: 0
+		lineageTag: 1c971db9-3cd2-43a6-8a37-351aad390509
+
+	measure 'Max Z Score' = ```
+			
+			        MAX ( ctl_CategoryMonth[Z Score] )
+			```
+		formatString: 0.00
+		lineageTag: c1efacc4-194b-4e20-9401-95201eb207bb
+
+	measure 'Months Covered' = ```
+			
+			        DISTINCTCOUNT ( ctl_CategoryMonth[Month Start] )
+			```
+		formatString: 0
+		lineageTag: 7be45b7e-8e45-451b-9e20-d17a348b767a
+
+	measure 'Ctl Events' = ```
+			
+			        MAX ( ctl_CategoryMonth[Events] )
+			```
+		formatString: 0
+		lineageTag: c232aa63-a968-4ff6-9958-3564c4c005e0
+
+	measure 'Ctl Rolling Mean' = ```
+			
+			        MAX ( ctl_CategoryMonth[Rolling Mean] )
+			```
+		formatString: 0.0
+		lineageTag: b134b184-1e30-48c0-85f6-376d2f3483ae
+
+	measure 'Ctl UCL' = ```
+			
+			        MAX ( ctl_CategoryMonth[UCL] )
+			```
+		formatString: 0.0
+		lineageTag: 886faa46-2212-4794-82ac-67a34dc6d092
+
+	measure 'Ctl Breach Point' = ```
+			
+			        IF ( MAX ( ctl_CategoryMonth[Is Breach] ) = 1, [Ctl Events] )
+			```
+		formatString: 0
+		lineageTag: 03ba9ae2-1669-47f7-ba79-ae258eeeb085
+
+	measure 'Ctl Watch Point' = ```
+			
+			        IF ( MAX ( ctl_CategoryMonth[Is Watch] ) = 1, [Ctl Events] )
+			```
+		formatString: 0
+		lineageTag: f2a55d9e-2c7e-4011-9257-366159535bbd
+
+	measure 'Status Colour' = ```
+			
+			        SWITCH ( SELECTEDVALUE ( ctl_CategoryMonth[Status] ), "Breach", "#C8553D", "Watch", "#E0A458", "#6B7A90" )
+			```
+		lineageTag: 1555fe8f-eaff-4023-9615-d19bf7a02540
+
+	measure 'Completeness %' = ```
+			
+			        SWITCH (
+			            SELECTEDVALUE ( 'Completeness Fields'[Field] ),
+			            "Narrative present", DIVIDE ( CALCULATE ( [Event Count], fact_events[has_narrative] = 1 ), [Event Count] ),
+			            "Lot number known", DIVIDE ( CALCULATE ( [Event Count], NOT ISBLANK ( fact_events[lot_number] ) ), [Event Count] ),
+			            "Patient age known", DIVIDE ( CALCULATE ( [Event Count], NOT ISBLANK ( fact_events[patient_age_years] ) ), [Event Count] ),
+			            "Outcome known", DIVIDE ( DISTINCTCOUNT ( fact_event_outcomes[event_key] ), [Event Count] ),
+			            "Manufacturer country known", [Manufacturer Country Known %],
+			            "DUNS known", [DUNS Coverage %],
+			            "Recall initiated date known", DIVIDE ( CALCULATE ( [Recall Count], NOT ISBLANK ( fact_recalls[recall_initiated_date_key] ) ), [Recall Count] )
+			        )
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: bd961757-0b76-4068-b32a-3ff8809cbbd0
+
+	measure 'Investigation Title' = ```
+			
+			        "Investigation: " & SELECTEDVALUE ( dim_parent[parent_company], "All parent companies" )
+			```
+		lineageTag: 8b5db9ed-58ac-4736-9e0f-d0a8b7136f69
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Column1 = text], {}),
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

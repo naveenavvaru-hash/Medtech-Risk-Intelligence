@@ -1,0 +1,164 @@
+table fact_recalls
+	lineageTag: 176becd0-e62e-5b5e-a04c-d86594751103
+
+	column recall_key
+		dataType: int64
+		isHidden
+		lineageTag: 134cad12-211d-57ab-ae7e-a8158bfa56c3
+		summarizeBy: none
+		sourceColumn: recall_key
+
+	column recall_id
+		dataType: string
+		lineageTag: 98a0d292-50a7-526c-b8fd-88e11bcb4d89
+		summarizeBy: none
+		sourceColumn: recall_id
+
+	column device_key
+		dataType: int64
+		isHidden
+		lineageTag: 9921a083-4e17-5ade-9b58-32dbfc6ed7d8
+		summarizeBy: none
+		sourceColumn: device_key
+
+	column mfr_key
+		dataType: int64
+		isHidden
+		lineageTag: 75669cbb-20c4-5a34-914e-ea5e85db914b
+		summarizeBy: none
+		sourceColumn: mfr_key
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: 85322599-3e4e-57ee-8e08-5e0ca47320fe
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column recall_date_source
+		dataType: string
+		lineageTag: 8ec43127-5109-5401-abcc-e830843e0083
+		summarizeBy: none
+		sourceColumn: recall_date_source
+
+	column recall_initiated_date_key
+		dataType: int64
+		isHidden
+		lineageTag: 1e376ff9-eb40-559d-a7da-84348dff251d
+		summarizeBy: none
+		sourceColumn: recall_initiated_date_key
+
+	column recall_status
+		dataType: string
+		lineageTag: bf60e378-e1d5-562c-ae4a-40f2ad6cee08
+		summarizeBy: none
+		sourceColumn: recall_status
+
+	column reason
+		dataType: string
+		lineageTag: efe9f921-a10a-5320-b82a-009d73e59159
+		summarizeBy: none
+		sourceColumn: reason
+
+	column reason_group
+		dataType: string
+		lineageTag: ec1f3970-c67e-50e4-859a-dd3619516db9
+		summarizeBy: none
+		sourceColumn: reason_group
+
+	column action
+		dataType: string
+		isHidden
+		lineageTag: b77bb239-457a-5fa4-826b-2ba8d95c93f4
+		summarizeBy: none
+		sourceColumn: action
+
+	column country
+		dataType: string
+		lineageTag: 24cc2f1c-2b74-5549-8461-7a954ba48918
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: country
+
+	column state
+		dataType: string
+		lineageTag: 11ca9922-c5a9-5d83-b96e-15eaf7993978
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: state
+
+	column city
+		dataType: string
+		lineageTag: 69d0b95f-8305-557f-9e6b-c37412498a04
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: city
+
+	column product_description
+		dataType: string
+		isHidden
+		lineageTag: 8c994943-6c04-5b52-8879-f7dac93602c4
+		summarizeBy: none
+		sourceColumn: product_description
+
+	column distribution_scope
+		dataType: string
+		lineageTag: 60ad87ac-65b3-5e42-8b6b-1748c894dbeb
+		summarizeBy: none
+		sourceColumn: distribution_scope
+
+	column product_quantity
+		dataType: string
+		isHidden
+		lineageTag: a38bf14d-da5b-56bb-bfb8-fa6802a9150a
+		summarizeBy: none
+		sourceColumn: product_quantity
+
+	column product_quantity_units
+		dataType: int64
+		formatString: #,0
+		lineageTag: 20369643-dec0-5fd7-9d34-3e7513ec4e8d
+		summarizeBy: sum
+		sourceColumn: product_quantity_units
+
+	column country_is_derived
+		dataType: int64
+		isHidden
+		lineageTag: 60751774-0cfd-52ab-87ed-98f0f15958fb
+		summarizeBy: none
+		sourceColumn: country_is_derived
+
+	partition fact_recalls = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DataFile), null, true),
+				    Sheet = Source{[Item = "fact_recalls", Kind = "Sheet"]}[Data],
+				    Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {
+				        {"recall_key", Int64.Type},
+				        {"recall_id", type text},
+				        {"device_key", Int64.Type},
+				        {"mfr_key", Int64.Type},
+				        {"date_key", Int64.Type},
+				        {"recall_date_source", type text},
+				        {"recall_initiated_date_key", Int64.Type},
+				        {"recall_status", type text},
+				        {"reason", type text},
+				        {"reason_group", type text},
+				        {"action", type text},
+				        {"country", type text},
+				        {"state", type text},
+				        {"city", type text},
+				        {"product_description", type text},
+				        {"distribution_scope", type text},
+				        {"product_quantity", type text},
+				        {"product_quantity_units", Int64.Type},
+				        {"country_is_derived", Int64.Type}
+				        }
+				    )
+				in
+				    Typed
+

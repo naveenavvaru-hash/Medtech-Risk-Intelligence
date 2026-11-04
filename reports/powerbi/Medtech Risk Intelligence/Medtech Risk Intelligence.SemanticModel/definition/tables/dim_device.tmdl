@@ -1,0 +1,193 @@
+table dim_device
+	lineageTag: fede715f-b3fd-511a-a699-581586531241
+
+	column device_key
+		dataType: int64
+		isHidden
+		lineageTag: 66485d2c-c450-5b8e-ab0f-57f2d129a5be
+		summarizeBy: none
+		sourceColumn: device_key
+
+	column product_code
+		dataType: string
+		lineageTag: bfc22119-e81d-555f-9886-ea0f9df6d837
+		summarizeBy: none
+		sourceColumn: product_code
+
+	column device_description
+		dataType: string
+		lineageTag: d78871c0-8dcf-54e3-a43f-e9ddd33e84fd
+		summarizeBy: none
+		sourceColumn: device_description
+
+	column device_type_fda
+		dataType: string
+		lineageTag: f6b6989a-dbf9-5be4-a461-a14b07b444da
+		summarizeBy: none
+		sourceColumn: device_type_fda
+
+	column category
+		dataType: string
+		lineageTag: 157e9018-4cf3-541c-ac80-687af9792729
+		summarizeBy: none
+		sourceColumn: category
+
+	column brand_name
+		dataType: string
+		lineageTag: 60ecd558-d543-54d9-bf21-4a563833787f
+		summarizeBy: none
+		sourceColumn: brand_name
+
+	column brand_name_display
+		dataType: string
+		lineageTag: 05bcc410-20d5-5db9-a4ee-649db5afb55d
+		summarizeBy: none
+		sourceColumn: brand_name_display
+
+	column model
+		dataType: string
+		lineageTag: 47a7dd17-12c6-559d-b653-6276300d375c
+		summarizeBy: none
+		sourceColumn: model
+
+	column brand_name_norm
+		dataType: string
+		isHidden
+		lineageTag: 4bcf3e9c-7b97-5327-a80d-ddd8621048d9
+		summarizeBy: none
+		sourceColumn: brand_name_norm
+
+	column model_norm
+		dataType: string
+		isHidden
+		lineageTag: e3ed1f9c-a93f-53f9-b0a3-8c793ad24b9f
+		summarizeBy: none
+		sourceColumn: model_norm
+
+	column sku
+		dataType: string
+		lineageTag: da0f30f6-f145-5261-a44d-83e921a30639
+		summarizeBy: none
+		sourceColumn: sku
+
+	column catalog_number_observed
+		dataType: string
+		lineageTag: 1459006c-ea19-582a-8813-4581bb643878
+		summarizeBy: none
+		sourceColumn: catalog_number_observed
+
+	column primary_di
+		dataType: string
+		lineageTag: e8adfa53-1338-5647-b06d-e30700fa97ad
+		summarizeBy: none
+		sourceColumn: primary_di
+
+	column issuing_agency
+		dataType: string
+		lineageTag: 412b8d7f-50c9-5121-a185-49b7b640fd18
+		summarizeBy: none
+		sourceColumn: issuing_agency
+
+	column product_type
+		dataType: string
+		lineageTag: 540c098d-5352-54ed-8364-5af5f2ca4a87
+		summarizeBy: none
+		sourceColumn: product_type
+
+	column brand_family
+		dataType: string
+		lineageTag: 5a715fdf-2455-5d41-916c-c6caf0c3c963
+		summarizeBy: none
+		sourceColumn: brand_family
+
+	column commercial_distribution_status
+		dataType: string
+		lineageTag: 5c777511-154d-5646-9aab-15efbc882178
+		summarizeBy: none
+		sourceColumn: commercial_distribution_status
+
+	column is_kit
+		dataType: boolean
+		lineageTag: 84e8f727-1462-5f34-ad7b-a764efe4d281
+		summarizeBy: none
+		sourceColumn: is_kit
+
+	column is_single_use
+		dataType: boolean
+		lineageTag: c7301bd6-c3ed-5c14-a27b-5cc519fa55b4
+		summarizeBy: none
+		sourceColumn: is_single_use
+
+	column is_sterile
+		dataType: boolean
+		lineageTag: a88ae3d6-a9da-5553-865f-ef3713498fe4
+		summarizeBy: none
+		sourceColumn: is_sterile
+
+	column mri_safety
+		dataType: string
+		lineageTag: b7e47f07-1a06-59cf-ade6-c470f82acd2d
+		summarizeBy: none
+		sourceColumn: mri_safety
+
+	column gudid_enriched
+		dataType: int64
+		isHidden
+		lineageTag: e868a604-e989-5703-99f6-7a6090a09a7d
+		summarizeBy: sum
+		sourceColumn: gudid_enriched
+
+		annotation SummarizationSetBy = Automatic
+
+	column match_method
+		dataType: string
+		isHidden
+		lineageTag: 4d4d6df6-6c9b-5590-b84b-1c7cc2ff7274
+		summarizeBy: none
+		sourceColumn: match_method
+
+	column gudid_match_level
+		dataType: string
+		lineageTag: f3e0a370-f155-538f-8588-30a0a283bcc9
+		summarizeBy: none
+		sourceColumn: gudid_match_level
+
+	partition dim_device = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DataFile), null, true),
+				    Sheet = Source{[Item = "dim_device", Kind = "Sheet"]}[Data],
+				    Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {
+				        {"device_key", Int64.Type},
+				        {"product_code", type text},
+				        {"device_description", type text},
+				        {"device_type_fda", type text},
+				        {"category", type text},
+				        {"brand_name", type text},
+				        {"brand_name_display", type text},
+				        {"model", type text},
+				        {"brand_name_norm", type text},
+				        {"model_norm", type text},
+				        {"sku", type text},
+				        {"catalog_number_observed", type text},
+				        {"primary_di", type text},
+				        {"issuing_agency", type text},
+				        {"product_type", type text},
+				        {"brand_family", type text},
+				        {"commercial_distribution_status", type text},
+				        {"is_kit", type logical},
+				        {"is_single_use", type logical},
+				        {"is_sterile", type logical},
+				        {"mri_safety", type text},
+				        {"gudid_enriched", Int64.Type},
+				        {"match_method", type text},
+				        {"gudid_match_level", type text}
+				        }
+				    )
+				in
+				    Typed
+

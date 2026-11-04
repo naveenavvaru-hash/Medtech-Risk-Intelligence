@@ -1,0 +1,174 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "e12d1fd30eed56e28199",
+  "position": {
+    "x": 655.56231003039511,
+    "y": 201.33738601823708,
+    "z": 9000,
+    "height": 279.14893617021278,
+    "width": 604.01215805471122,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_date"
+                    }
+                  },
+                  "Property": "Year Quarter"
+                }
+              },
+              "queryRef": "dim_date.Year Quarter",
+              "nativeQueryRef": "Year Quarter",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_parent"
+                    }
+                  },
+                  "Property": "parent_company"
+                }
+              },
+              "queryRef": "dim_parent.parent_company",
+              "nativeQueryRef": "parent_company",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Peak Velocity %"
+                }
+              },
+              "queryRef": "_Measures.Peak Velocity %",
+              "nativeQueryRef": "Peak Velocity %"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "158.8449848024316D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_parent.parent_company"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'When did each parent company spike?'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "450e62cdc7b9cb213350",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_date"
+              }
+            },
+            "Property": "Year Quarter"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "89e4ca90b3dd832bd239",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_parent"
+              }
+            },
+            "Property": "parent_company"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "fa81d99203b2824e8b0a",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Peak Velocity %"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

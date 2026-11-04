@@ -1,0 +1,63 @@
+table data_coverage
+	lineageTag: bb7c871b-1447-56ce-abd0-6b1c167f9785
+
+	column sheet
+		dataType: string
+		lineageTag: c62b2c23-beb7-5458-9008-7f5986047669
+		summarizeBy: none
+		sourceColumn: sheet
+
+	column column
+		dataType: string
+		lineageTag: 5afe66d8-d0a5-5dbd-9363-77774148c917
+		summarizeBy: none
+		sourceColumn: column
+
+	column rows
+		dataType: int64
+		isHidden
+		lineageTag: f1b9bd33-05f0-5426-8cd7-553c698105ab
+		summarizeBy: none
+		sourceColumn: rows
+
+	column non_null
+		dataType: int64
+		isHidden
+		lineageTag: de015ca2-01e3-5b8b-afd8-f9be4ae43168
+		summarizeBy: none
+		sourceColumn: non_null
+
+	column non_null_pct
+		dataType: double
+		lineageTag: ab8fec83-bfa1-5ff8-95c3-af354d2e3cde
+		summarizeBy: none
+		sourceColumn: non_null_pct
+
+	column distinct_values
+		dataType: int64
+		isHidden
+		lineageTag: 1e8b3010-09c3-5712-b0c4-a5dbf81984ef
+		summarizeBy: none
+		sourceColumn: distinct_values
+
+	partition data_coverage = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents(DataFile), null, true),
+				    Sheet = Source{[Item = "data_coverage", Kind = "Sheet"]}[Data],
+				    Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				    Typed = Table.TransformColumnTypes(
+				        Promoted,
+				        {
+				        {"sheet", type text},
+				        {"column", type text},
+				        {"rows", Int64.Type},
+				        {"non_null", Int64.Type},
+				        {"non_null_pct", type number},
+				        {"distinct_values", Int64.Type}
+				        }
+				    )
+				in
+				    Typed
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Medtech Risk Intelligence"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ab8caecc-18c0-4b40-8a06-10e5a26b46a1"
+  }
+}

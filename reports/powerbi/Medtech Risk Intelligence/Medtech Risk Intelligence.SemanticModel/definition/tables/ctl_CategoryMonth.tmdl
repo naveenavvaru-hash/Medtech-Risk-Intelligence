@@ -1,0 +1,205 @@
+table ctl_CategoryMonth
+	lineageTag: 420156f9-e407-449d-9ebe-e64ff63a46e3
+
+	column Category
+		lineageTag: abc6707b-df53-46d4-a2b6-2fe105726f82
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Category]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 7ebfb5c0-5670-45d6-aa20-d783dee07921
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = User
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 6dd884c0-d77e-44ed-bc69-e65f16174a4a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Events
+		formatString: 0
+		lineageTag: d2870032-0dc6-4b28-9b3b-e5b6f0ea8eed
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Events]
+
+		annotation SummarizationSetBy = User
+
+	column MonthIdx
+		formatString: 0
+		lineageTag: 8e4e1023-1d0c-4769-830b-0d83f47e991f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthIdx]
+
+		annotation SummarizationSetBy = User
+
+	column 'Prior Months'
+		formatString: 0
+		lineageTag: 7f75efba-c9a5-4c40-88dd-a3789f06663f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Prior Months]
+
+		annotation SummarizationSetBy = User
+
+	column 'Rolling Mean'
+		formatString: 0.0
+		lineageTag: 2dd23395-2b1b-4879-9e4b-28fd975c520d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Rolling Mean]
+
+		annotation SummarizationSetBy = User
+
+	column 'Rolling SD'
+		formatString: 0.0
+		lineageTag: a1318445-5602-4a97-b41d-486f8fc72fd5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Rolling SD]
+
+		annotation SummarizationSetBy = User
+
+	column UCL
+		formatString: 0.0
+		lineageTag: e94cce3a-b2a1-46db-b8d9-eb1bf797e178
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [UCL]
+
+		annotation SummarizationSetBy = User
+
+	column 'Z Score'
+		formatString: 0.00
+		lineageTag: 3054bdc7-9e43-47f8-a00a-e82986d81daa
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Z Score]
+
+		annotation SummarizationSetBy = User
+
+	column 'Month Start'
+		formatString: yyyy-mm-dd
+		lineageTag: d2b45c15-3b0a-4f7b-9f46-658d6f44ea78
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Start]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Status
+		lineageTag: c8e2dda3-9c22-4a26-86bd-a8b2b1fb6327
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Status]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Breach'
+		formatString: 0
+		lineageTag: 03ec5e12-acb3-472f-b3da-d21725b4d885
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Is Breach]
+
+		annotation SummarizationSetBy = User
+
+	column 'Is Watch'
+		formatString: 0
+		lineageTag: baba38b1-9295-4853-bc3d-8fe8fd93ba18
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Is Watch]
+
+		annotation SummarizationSetBy = User
+
+	partition ctl_CategoryMonth = calculated
+		mode: import
+		source =
+				
+				VAR Ev =
+				    ADDCOLUMNS (
+				        SELECTCOLUMNS (
+				            fact_events,
+				            "dk", fact_events[date_key],
+				            "Category", RELATED ( dim_device[category] )
+				        ),
+				        "Year", INT ( [dk] / 10000 ),
+				        "Month", MOD ( INT ( [dk] / 100 ), 100 )
+				    )
+				VAR Keys =
+				    DISTINCT (
+				        SELECTCOLUMNS ( Ev, "Category", [Category], "Year", [Year], "Month", [Month] )
+				    )
+				VAR Base =
+				    ADDCOLUMNS (
+				        Keys,
+				        "Events",
+				            VAR c = [Category]
+				            VAR y = [Year]
+				            VAR m = [Month]
+				            RETURN
+				                COUNTROWS ( FILTER ( Ev, [Category] = c && [Year] = y && [Month] = m ) ),
+				        "MonthIdx", [Year] * 12 + [Month] - 1
+				    )
+				VAR S1 =
+				    ADDCOLUMNS (
+				        Base,
+				        "Prior Months",
+				            VAR c = [Category]
+				            VAR i = [MonthIdx]
+				            RETURN
+				                COUNTROWS ( FILTER ( Base, [Category] = c && [MonthIdx] < i && [MonthIdx] >= i - 12 ) ),
+				        "Rolling Mean",
+				            VAR c = [Category]
+				            VAR i = [MonthIdx]
+				            RETURN
+				                AVERAGEX ( FILTER ( Base, [Category] = c && [MonthIdx] < i && [MonthIdx] >= i - 12 ), [Events] ),
+				        "Rolling SD",
+				            VAR c = [Category]
+				            VAR i = [MonthIdx]
+				            VAR T = FILTER ( Base, [Category] = c && [MonthIdx] < i && [MonthIdx] >= i - 12 )
+				            RETURN
+				                IF ( COUNTROWS ( T ) >= 2, STDEVX.S ( T, [Events] ) )
+				    )
+				VAR S2 =
+				    ADDCOLUMNS (
+				        S1,
+				        "UCL", IF ( NOT ISBLANK ( [Rolling SD] ), [Rolling Mean] + 3 * [Rolling SD] ),
+				        "Z Score", IF ( [Prior Months] >= 6 && [Rolling SD] > 0, DIVIDE ( [Events] - [Rolling Mean], [Rolling SD] ) ),
+				        "Month Start", DATE ( [Year], [Month], 1 )
+				    )
+				RETURN
+				    ADDCOLUMNS (
+				        S2,
+				        "Status",
+				            SWITCH (
+				                TRUE (),
+				                [Prior Months] < 6, "Not enough history",
+				                [Events] > [UCL], "Breach",
+				                [Z Score] >= 2, "Watch",
+				                "Normal"
+				            ),
+				        "Is Breach", IF ( [Prior Months] >= 6 && [Events] > [UCL], 1, 0 ),
+				        "Is Watch", IF ( [Prior Months] >= 6 && NOT ( [Events] > [UCL] ) && [Z Score] >= 2, 1, 0 )
+				    )
+
+	annotation PBI_Id = e0fb59c3d4184767bd3131a5f2bd49ff
+

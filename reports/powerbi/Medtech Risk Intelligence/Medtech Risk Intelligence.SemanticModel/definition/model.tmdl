@@ -1,0 +1,33 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DataFile", "fact_events", "fact_event_outcomes", "fact_event_problem_codes", "fact_recalls", "dim_device", "dim_manufacturer", "dim_date", "dim_classification", "root_cause_flags", "root_cause_flags_parent", "data_coverage", "_Measures"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop","DevMode"]
+
+ref table fact_events
+ref table fact_event_outcomes
+ref table fact_event_problem_codes
+ref table fact_recalls
+ref table dim_device
+ref table dim_manufacturer
+ref table dim_date
+ref table dim_classification
+ref table root_cause_flags
+ref table root_cause_flags_parent
+ref table data_coverage
+ref table _Measures
+ref table dim_category
+ref table dim_parent
+ref table 'Completeness Fields'
+ref table ctl_CategoryMonth
+
+ref cultureInfo en-US
+
