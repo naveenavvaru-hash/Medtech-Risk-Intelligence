@@ -110,4 +110,4 @@ Change history: [`docs/CHANGELOG.md`](docs/CHANGELOG.md). Resolved issues: [`doc
 
 ## License
 
-The project uses the MIT license. All rights are reserved; do not assume permission to reuse, modify, or distribute this project.
+This project is released under the MIT License. See the LICENSE file for details; do not assume permission to reuse, modify, or distribute this project.
