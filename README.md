@@ -19,6 +19,22 @@ openFDA API
  EXPORT   PowerBI_Export.xlsx (14 sheets) + quality gate        data/gold/PowerBI_Export.xlsx
 ```
 
+## Report preview
+
+The Power BI report has six pages. Three are shown here.
+
+**Home**
+
+![Home page](docs/images/Home.png)
+
+**Executive Overview**
+
+![Executive Overview page](docs/images/Executive.png)
+
+**Risk Radar**
+
+![Risk Radar page](docs/images/Risk_Radar.png)
+
 ## Quick start
 
 ```bash
