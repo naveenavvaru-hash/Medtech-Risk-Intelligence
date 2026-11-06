@@ -25,15 +25,15 @@ The Power BI report has six pages. Three are shown here.
 
 **Home**
 
-![Home page](docs/images/Home.png)
+![Home page](Home.png)
 
 **Executive Overview**
 
-![Executive Overview page](docs/images/Executive.png)
+![Executive Overview page](Executive.png)
 
 **Risk Radar**
 
-![Risk Radar page](docs/images/Risk_Radar.png)
+![Risk Radar page](Risk_Radar.png)
 
 ## Quick start
 
@@ -126,4 +126,4 @@ Change history: [`docs/CHANGELOG.md`](docs/CHANGELOG.md). Resolved issues: [`doc
 
 ## License
 
-This project is released under the MIT License. See the LICENSE file for details; do not assume permission to reuse, modify, or distribute this project.
+This project is released under the MIT License. See the LICENSE file for details.
