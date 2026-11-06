@@ -21,7 +21,7 @@ openFDA API
 
 ## Report preview
 
-The Power BI report has six pages. Three are shown here.
+The Power BI report has a home page and six report pages, shown below.
 
 **Home**
 
@@ -37,7 +37,7 @@ The Power BI report has six pages. Three are shown here.
 
 **Breach Monitor**
 
-![Breach_Monitor page](Breach_Monitor.png)
+![Breach Monitor page](Breach_Monitor.png)
 
 **Investigation**
 
@@ -49,7 +49,7 @@ The Power BI report has six pages. Three are shown here.
 
 **Data Trust**
 
-![Data_Trust page](Data_Trust.png)
+![Data Trust page](Data_Trust.png)
 
 ## Quick start
 
