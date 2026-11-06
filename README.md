@@ -35,6 +35,22 @@ The Power BI report has six pages. Three are shown here.
 
 ![Risk Radar page](Risk_Radar.png)
 
+**Breach Monitor**
+
+![Breach_Monitor page](Breach_Monitor.png)
+
+**Investigation**
+
+![Investigation page](Investigation.png)
+
+**Recalls**
+
+![Recalls page](Recalls.png)
+
+**Data Trust**
+
+![Data_Trust page](Data_Trust.png)
+
 ## Quick start
 
 ```bash
